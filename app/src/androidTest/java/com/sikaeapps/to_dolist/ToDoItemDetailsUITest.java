@@ -26,6 +26,7 @@ public class ToDoItemDetailsUITest {
         onView(withId(R.id.item_title_details)).check(matches(withText(item.getTitle())));
         onView(withId(R.id.item_description_details)).check(matches(withText(item.getDescription())));
         onView(withId(R.id.item_location_details)).check(matches(withText(item.getLocation())));
+        onView(withId(R.id.edit_button)).check(matches(withText(R.string.edit)));
     }
 
 

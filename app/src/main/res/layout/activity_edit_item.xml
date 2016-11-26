@@ -13,21 +13,25 @@
 
     <EditText
         android:id="@+id/title_edit"
+        android:hint="Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/description_edit"
+        android:hint="Description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/location_edit"
+        android:hint="Location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/save_edit"
+        android:text="Save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

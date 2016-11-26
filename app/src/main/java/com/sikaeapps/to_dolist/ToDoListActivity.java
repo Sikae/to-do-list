@@ -64,7 +64,6 @@ public class ToDoListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ToDoListActivity.this, ItemDetailsActivity.class);
                 Item item = manager.getItemAtIndex(position);
-                Log.d("item_title", item.getTitle());
                 intent.putExtra("item", item);
                 startActivity(intent);
             }

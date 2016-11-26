@@ -9,14 +9,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ItemAdapter extends BaseAdapter{
 
-    private Context context;
     private List<Item> items;
-    private static LayoutInflater inflater;
+    private LayoutInflater inflater;
 
     public ItemAdapter(Context context, List<Item> items) {
-        this.context = context;
         this.items = items;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -38,15 +39,29 @@ public class ItemAdapter extends BaseAdapter{
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if (view == null) {
-            view = inflater.inflate(R.layout.item_layout, null);
-        }
-        TextView title = (TextView) view.findViewById(R.id.item_title);
-        title.setText(items.get(i).getTitle());
+        ItemViewHolder holder;
 
-        TextView location = (TextView) view.findViewById(R.id.item_location);
-        location.setText(items.get(i).getLocation());
+        if (view != null) {
+            holder = (ItemViewHolder) view.getTag();
+        } else {
+            view = inflater.inflate(R.layout.item_layout, viewGroup, false);
+            holder = new ItemViewHolder(view);
+            view.setTag(holder);
+        }
+
+        holder.titleTextView.setText(items.get(i).getTitle());
+        holder.locationTextView.setText(items.get(i).getLocation());
 
         return view;
+    }
+
+    static class ItemViewHolder {
+        @BindView(R.id.item_title) TextView titleTextView;
+        @BindView(R.id.item_location) TextView locationTextView;
+
+        public ItemViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+
     }
 }

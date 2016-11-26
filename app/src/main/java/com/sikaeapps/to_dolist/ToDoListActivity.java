@@ -1,11 +1,14 @@
 package com.sikaeapps.to_dolist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import butterknife.BindView;
@@ -19,6 +22,10 @@ public class ToDoListActivity extends AppCompatActivity {
     ListView doneListView;
 
     private ItemManager manager;
+
+    public ItemManager getManager() {
+        return manager;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +58,17 @@ public class ToDoListActivity extends AppCompatActivity {
 
         toDoListView.setAdapter(new ItemAdapter(this, manager.getToDoItems()));
         doneListView.setAdapter(new ItemAdapter(this, manager.getDoneItems()));
+
+        toDoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ToDoListActivity.this, ItemDetailsActivity.class);
+                Item item = manager.getItemAtIndex(position);
+                Log.d("item_title", item.getTitle());
+                intent.putExtra("item", item);
+                startActivity(intent);
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

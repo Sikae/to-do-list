@@ -33,7 +33,7 @@ public class ItemManager {
     }
 
     public Item getItemAtIndex(int index) {
-        return new Item("Title", "Description", "Location");
+        return toDoItems.get(index);
     }
 
     public void removeAll() {

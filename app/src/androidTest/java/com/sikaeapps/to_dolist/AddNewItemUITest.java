@@ -32,13 +32,13 @@ public class AddNewItemUITest {
     @Test
     public void whenAddNewItemIsPressedUIElementsAreShown() {
         onView(withId(R.id.new_item_title)).check(matches(isDisplayed()));
-        onView(withId(R.id.new_item_title)).check(matches(withHint("Title")));
+        onView(withId(R.id.new_item_title)).check(matches(withHint(R.string.title_hint)));
         onView(withId(R.id.new_item_description)).check(matches(isDisplayed()));
-        onView(withId(R.id.new_item_description)).check(matches(withHint("Description...")));
+        onView(withId(R.id.new_item_description)).check(matches(withHint(R.string.description_hint)));
         onView(withId(R.id.new_item_location)).check(matches(isDisplayed()));
-        onView(withId(R.id.new_item_location)).check(matches(withHint("Location")));
+        onView(withId(R.id.new_item_location)).check(matches(withHint(R.string.location_hint)));
         onView(withId(R.id.new_item_save_button)).check(matches(isDisplayed()));
-        onView(withId(R.id.new_item_save_button)).check(matches(withText("Save")));
+        onView(withId(R.id.new_item_save_button)).check(matches(withText(R.string.save)));
     }
 
     @Test

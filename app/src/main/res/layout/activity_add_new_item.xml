@@ -13,19 +13,19 @@
 
     <EditText
         android:id="@+id/new_item_title"
-        android:hint="Title"
+        android:hint="@string/title_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/new_item_description"
-        android:hint="Description..."
+        android:hint="@string/description_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/new_item_location"
-        android:hint="Location"
+        android:hint="@string/location_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

@@ -14,7 +14,6 @@ import butterknife.ButterKnife;
 
 public class AddNewItemActivity extends AppCompatActivity {
 
-    private static final int OK_CODE = 123;
     @BindView(R.id.new_item_title)
     EditText title;
 
@@ -42,11 +41,11 @@ public class AddNewItemActivity extends AppCompatActivity {
         try {
             manager.addItem(newItem);
             Intent intent = new Intent();
-            intent.putExtra("manager", manager);
+            intent.putExtra(Constants.MANAGER, manager);
             setResult(Activity.RESULT_OK, intent);
             finish();
         } catch (DuplicatedItemException e) {
-            Toast.makeText(this, "Item already exists.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.duplicated_item_message, Toast.LENGTH_LONG).show();
         }
     }
 }

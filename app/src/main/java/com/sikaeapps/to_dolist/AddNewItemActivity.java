@@ -2,9 +2,8 @@ package com.sikaeapps.to_dolist;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,7 +31,7 @@ public class AddNewItemActivity extends AppCompatActivity {
     }
 
     public void saveNewItem(View view) {
-        ItemManager manager = (ItemManager) getIntent().getSerializableExtra("manager");
+        ItemManager manager = (ItemManager) getIntent().getSerializableExtra(Constants.MANAGER);
 
         Item newItem = new Item(title.getText().toString(),
                 description.getText().toString(),

@@ -44,6 +44,7 @@ public class AddNewItemActivity extends AppCompatActivity {
             setResult(Activity.RESULT_OK, intent);
             finish();
         } catch (DuplicatedItemException e) {
+            Toast.makeText(this, R.string.duplicated_item_message, Toast.LENGTH_LONG).show();
         }
     }
 }

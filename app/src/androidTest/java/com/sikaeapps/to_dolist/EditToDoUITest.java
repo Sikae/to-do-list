@@ -12,10 +12,14 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.anything;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 
 public class EditToDoUITest {
 
@@ -38,20 +42,15 @@ public class EditToDoUITest {
     }
 
     @Test
-    public void givenUserEditsAToDoItemWhenPressingSaveItemIsUpdatedOnToDoItemLlist() {
+    public void givenUserEditsAToDoItemWhenPressingSaveItemIsUpdatedOnToDoItemList() {
         onView(withId(R.id.fab)).perform(click());
-        onView(withId(R.id.new_edit_item_title)).perform(typeText("Title"));
-        onView(withId(R.id.new_edit_item_description)).perform(typeText("Description..."));
-        onView(withId(R.id.new_edit_item_location)).perform(typeText("Location"));
+        entryTask("Title", "Description...", "Location");
         onView(withId(R.id.save_button)).perform(click());
 
         onData(anything()).inAdapterView(withId(R.id.to_do_list_view)).atPosition(1).perform(click());
         onView(withId(R.id.edit_button)).perform(click());
 
-        onView(withId(R.id.new_edit_item_title)).perform(replaceText("Do the laundry"));
-        onView(withId(R.id.new_edit_item_description)).perform(replaceText("Do the laundry at home at 9.00 am"));
-        onView(withId(R.id.new_edit_item_location)).perform(replaceText("Home"));
-
+        replaceTask("Do the laundry", "Do the laundry at home at 9.00 am", "Home");
         onView(withId(R.id.save_button)).perform(click());
 
         onData(CoreMatchers.anything()).inAdapterView(withId(R.id.to_do_list_view)).atPosition(1).
@@ -63,4 +62,36 @@ public class EditToDoUITest {
                 check(matches(withText("Home")));
     }
 
+    @Test
+    public void whenUserIsEditingAndTheItemEditedIsAlreadyInToDoListThenAToastMessageIsDisplayed() {
+        onView(withId(R.id.fab)).perform(click());
+        entryTask("Title1", "Description...1", "Location1");
+        onView(withId(R.id.save_button)).perform(click());
+
+        onView(withId(R.id.fab)).perform(click());
+        entryTask("Title2", "Description...2", "Location2");
+        onView(withId(R.id.save_button)).perform(click());
+
+        onData(anything()).inAdapterView(withId(R.id.to_do_list_view)).atPosition(1).perform(click());
+        onView(withId(R.id.edit_button)).perform(click());
+
+        replaceTask("Title2", "Description...2", "Location2");
+        onView(withId(R.id.save_button)).perform(click());
+
+        onView(withText(R.string.duplicated_item_message)).
+                inRoot(withDecorView(not(is(toDoListActivityTestRule.getActivity().getWindow().getDecorView())))).
+                check(matches(isDisplayed()));
+    }
+
+    private void entryTask(String title, String description, String location) {
+        onView(withId(R.id.new_edit_item_title)).perform(typeText(title));
+        onView(withId(R.id.new_edit_item_description)).perform(typeText(description));
+        onView(withId(R.id.new_edit_item_location)).perform(typeText(location));
+    }
+
+    private void replaceTask(String title, String description, String location) {
+        onView(withId(R.id.new_edit_item_title)).perform(replaceText(title));
+        onView(withId(R.id.new_edit_item_description)).perform(replaceText(description));
+        onView(withId(R.id.new_edit_item_location)).perform(replaceText(location));
+    }
 }

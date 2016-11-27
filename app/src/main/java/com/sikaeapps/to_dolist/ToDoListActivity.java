@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 
 public class ToDoListActivity extends AppCompatActivity {
 
+    private static final int REQUEST_CODE = 2;
     @BindView(R.id.to_do_list_view)
     ListView toDoListView;
     @BindView(R.id.done_list_view)
@@ -55,15 +56,11 @@ public class ToDoListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        toDoListView.setAdapter(new ItemAdapter(this, manager.getToDoItems()));
-        doneListView.setAdapter(new ItemAdapter(this, manager.getDoneItems()));
-
         toDoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ToDoListActivity.this, ItemDetailsActivity.class);
                 Item item = manager.getItemAtIndex(position);
-                Log.d("item_title", item.getTitle());
                 intent.putExtra("item", item);
                 startActivity(intent);
             }
@@ -73,8 +70,29 @@ public class ToDoListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), AddNewItemActivity.class);
+                intent.putExtra("manager", manager);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
     }
 
+    private void updateListViews() {
+        toDoListView.setAdapter(new ItemAdapter(this, manager.getToDoItems()));
+        doneListView.setAdapter(new ItemAdapter(this, manager.getDoneItems()));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateListViews();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            manager = (ItemManager) data.getSerializableExtra("manager");
+        }
+    }
 }

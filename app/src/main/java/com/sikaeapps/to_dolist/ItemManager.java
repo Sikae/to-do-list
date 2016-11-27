@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemManager implements Serializable{
+public class ItemManager implements Serializable {
 
     private List<Item> toDoItems;
     private List<Item> doneItems;

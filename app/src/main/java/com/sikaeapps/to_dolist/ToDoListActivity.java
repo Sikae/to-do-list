@@ -80,7 +80,7 @@ public class ToDoListActivity extends AppCompatActivity {
     }
 
     private void updateListViews() {
-        toDoListView.setAdapter(new ItemAdapter(this, manager.getToDoItems()));
+        toDoListView.setAdapter(new ToDoItemAdapter(this, manager.getToDoItems()));
         doneListView.setAdapter(new ItemAdapter(this, manager.getDoneItems()));
     }
 

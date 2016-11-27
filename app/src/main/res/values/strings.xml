@@ -4,4 +4,8 @@
     <string name="todo">TODO:</string>
     <string name="done">DONE:</string>
     <string name="save">Save</string>
+    <string name="title_hint">Title</string>
+    <string name="description_hint">Description...</string>
+    <string name="location_hint">Location</string>
+    <string name="duplicated_item_message">Item already exists.</string>
 </resources>

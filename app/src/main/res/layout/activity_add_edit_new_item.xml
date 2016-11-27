@@ -12,25 +12,25 @@
     tools:context="com.sikaeapps.to_dolist.AddNewItemActivity">
 
     <EditText
-        android:id="@+id/new_item_title"
+        android:id="@+id/new_edit_item_title"
         android:hint="@string/title_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/new_item_description"
+        android:id="@+id/new_edit_item_description"
         android:hint="@string/description_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/new_item_location"
+        android:id="@+id/new_edit_item_location"
         android:hint="@string/location_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/new_item_save_button"
+        android:id="@+id/save_button"
         android:text="@string/save"
         android:onClick="saveNewItem"
         android:layout_width="wrap_content"

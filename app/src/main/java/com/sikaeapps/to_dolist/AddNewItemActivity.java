@@ -13,13 +13,13 @@ import butterknife.ButterKnife;
 
 public class AddNewItemActivity extends AppCompatActivity {
 
-    @BindView(R.id.new_item_title)
+    @BindView(R.id.new_edit_item_title)
     EditText title;
 
-    @BindView(R.id.new_item_description)
+    @BindView(R.id.new_edit_item_description)
     EditText description;
 
-    @BindView(R.id.new_item_location)
+    @BindView(R.id.new_edit_item_location)
     EditText location;
 
 

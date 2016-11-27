@@ -27,12 +27,12 @@ public class EditToDoUITest {
         Item item = toDoListActivityTestRule.getActivity().getManager().getItemAtIndex(0);
         onData(anything()).inAdapterView(withId(R.id.to_do_list_view)).atPosition(0).perform(click());
         onView(withId(R.id.edit_button)).perform(click());
-        onView(withId(R.id.new_item_title)).check(matches(withText(item.getTitle())));
-        onView(withId(R.id.new_item_title)).check(matches(withHint(R.string.title_hint)));
-        onView(withId(R.id.new_item_description)).check(matches(withText(item.getDescription())));
-        onView(withId(R.id.new_item_description)).check(matches(withHint(R.string.description_hint)));
-        onView(withId(R.id.new_item_location)).check(matches(withText(item.getLocation())));
-        onView(withId(R.id.new_item_location)).check(matches(withHint(R.string.location_hint)));
-        onView(withId(R.id.new_item_save_button)).check(matches(withText(R.string.save)));
+        onView(withId(R.id.new_edit_item_title)).check(matches(withText(item.getTitle())));
+        onView(withId(R.id.new_edit_item_title)).check(matches(withHint(R.string.title_hint)));
+        onView(withId(R.id.new_edit_item_description)).check(matches(withText(item.getDescription())));
+        onView(withId(R.id.new_edit_item_description)).check(matches(withHint(R.string.description_hint)));
+        onView(withId(R.id.new_edit_item_location)).check(matches(withText(item.getLocation())));
+        onView(withId(R.id.new_edit_item_location)).check(matches(withHint(R.string.location_hint)));
+        onView(withId(R.id.save_button)).check(matches(withText(R.string.save)));
     }
 }

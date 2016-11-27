@@ -49,7 +49,6 @@ public class AddNewItemUITest {
 
         onView(withId(R.id.new_item_save_button)).perform(click());
 
-
         onData(anything()).inAdapterView(withId(R.id.to_do_list_view)).atPosition(1).
                 onChildView(withId(R.id.item_title)).
                 check(matches(withText("Do the laundry")));

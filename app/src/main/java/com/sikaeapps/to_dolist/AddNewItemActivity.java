@@ -26,7 +26,7 @@ public class AddNewItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_item);
+        setContentView(R.layout.activity_add_edit_new_item);
         ButterKnife.bind(this);
     }
 

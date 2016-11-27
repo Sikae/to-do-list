@@ -68,4 +68,23 @@ public class ItemManagerTest {
         exception.expect(DuplicatedItemException.class);
         manager.addItem(new Item(""));
     }
+
+    @Test
+    public void whenItemIsUpdatedThenUpdatedItemIsInToDoItems() throws DuplicatedItemException {
+        manager.addItem(new Item(""));
+        Item updatedItem = new Item("Title", "Description", "Location");
+        manager.updateItemAt(0, updatedItem);
+        assertThat(manager.getItemAtIndex(0), is(updatedItem));
+    }
+
+    @Test
+    public void whenUpdatedItemIsAlreadyInToDoItemsAnExceptionIsThrown() throws DuplicatedItemException {
+        Item itemOne = new Item("Title1", "Description1", "Location1");
+        Item itemTwo = new Item("Title2", "Description2", "Location2");
+        manager.addItem(itemOne);
+        manager.addItem(itemTwo);
+        exception.expect(DuplicatedItemException.class);
+        manager.updateItemAt(0, itemTwo);
+    }
+
 }

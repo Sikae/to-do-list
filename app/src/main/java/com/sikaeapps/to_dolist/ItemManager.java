@@ -41,4 +41,14 @@ public class ItemManager implements Serializable {
         toDoItems.clear();
         doneItems.clear();
     }
+
+    public void updateItemAt(int index, Item item) throws DuplicatedItemException {
+        for (int i = 1; i < toDoItems.size(); i++) {
+            if (toDoItems.get(i).equals(item)) {
+                throw new DuplicatedItemException("Item already exists.");
+            }
+        }
+
+        toDoItems.set(index, item);
+    }
 }

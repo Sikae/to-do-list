@@ -14,7 +14,9 @@ import butterknife.ButterKnife;
 
 public class ToDoListActivity extends AppCompatActivity {
 
-    static final int REQUEST_CODE = 2;
+    static final int ADD_ITEM_REQUEST_CODE = 2;
+    static final int EDIT_ITEM_REQUEST_CODE = 3;
+
     @BindView(R.id.to_do_list_view)
     ListView toDoListView;
     @BindView(R.id.done_list_view)
@@ -60,8 +62,9 @@ public class ToDoListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ToDoListActivity.this, ItemDetailsActivity.class);
                 Item item = manager.getItemAtIndex(position);
+                intent.putExtra(Constants.MANAGER, manager);
                 intent.putExtra(Constants.ITEM, item);
-                startActivity(intent);
+                startActivityForResult(intent, EDIT_ITEM_REQUEST_CODE);
             }
         });
 
@@ -71,7 +74,7 @@ public class ToDoListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), AddNewItemActivity.class);
                 intent.putExtra(Constants.MANAGER, manager);
-                startActivityForResult(intent, REQUEST_CODE);
+                startActivityForResult(intent, ADD_ITEM_REQUEST_CODE);
             }
         });
     }
@@ -90,8 +93,13 @@ public class ToDoListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE) {
-            manager = (ItemManager) data.getSerializableExtra(Constants.MANAGER);
+
+        switch (requestCode) {
+            case ADD_ITEM_REQUEST_CODE:
+            case EDIT_ITEM_REQUEST_CODE:
+                manager = (ItemManager) data.getSerializableExtra(Constants.MANAGER);
+                break;
         }
+
     }
 }

@@ -22,16 +22,40 @@ public class EditItemActivity extends AppCompatActivity {
     @BindView(R.id.new_edit_item_location)
     EditText locationEdit;
 
+    private ItemManager manager;
+    private Item item;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_new_item);
         ButterKnife.bind(this);
 
-        Item item = (Item) getIntent().getSerializableExtra("item");
+        item = (Item) getIntent().getSerializableExtra("item");
 
         titleEdit.setText(item.getTitle());
         descriptionEdit.setText(item.getDescription());
         locationEdit.setText(item.getLocation());
     }
+
+    public void saveNewItem(View view) {
+        ItemManager manager = (ItemManager) getIntent().getSerializableExtra(Constants.MANAGER);
+
+        Item updatedItem = new Item(
+                titleEdit.getText().toString(),
+                descriptionEdit.getText().toString(),
+                locationEdit.getText().toString());
+
+        int index = manager.getToDoItems().indexOf(item);
+
+        try {
+            manager.updateItemAt(index, updatedItem);
+            Intent intent = new Intent();
+            intent.putExtra(Constants.MANAGER, manager);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
+        } catch (DuplicatedItemException e) {
+        }
+    }
+
 }

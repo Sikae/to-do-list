@@ -87,4 +87,12 @@ public class ItemManagerTest {
         manager.updateItemAt(0, itemTwo);
     }
 
+    @Test
+    public void whenAToDoItemIsRemovedThenToDoListRemovesTheItemAtThatIndex() throws Exception {
+        Item item = new Item("Title");
+        manager.addItem(item);
+        manager.addItem(new Item("2"));
+        manager.removeItemAt(0);
+        assertThat(manager.getItemAtIndex(0).equals(item), is(false));
+    }
 }

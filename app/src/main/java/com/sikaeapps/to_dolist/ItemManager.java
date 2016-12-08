@@ -51,4 +51,8 @@ public class ItemManager implements Serializable {
 
         toDoItems.set(index, item);
     }
+
+    public void removeItemAt(int index) {
+        toDoItems.remove(index);
+    }
 }

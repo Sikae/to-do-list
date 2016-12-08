@@ -57,17 +57,6 @@ public class ToDoListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        toDoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ToDoListActivity.this, ItemDetailsActivity.class);
-                Item item = manager.getItemAtIndex(position);
-                intent.putExtra(Constants.MANAGER, manager);
-                intent.putExtra(Constants.ITEM, item);
-                startActivityForResult(intent, EDIT_ITEM_REQUEST_CODE);
-            }
-        });
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +69,8 @@ public class ToDoListActivity extends AppCompatActivity {
     }
 
     private void updateListViews() {
-        toDoListView.setAdapter(new ToDoItemAdapter(this, manager.getToDoItems()));
+        ToDoItemAdapter toDoItemListViewAdapter = new ToDoItemAdapter(this, manager.getToDoItems(),manager, this);
+        toDoListView.setAdapter(toDoItemListViewAdapter);
         doneListView.setAdapter(new ItemAdapter(this, manager.getDoneItems()));
     }
 

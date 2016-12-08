@@ -9,11 +9,14 @@ import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
+import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.anything;
+import static org.hamcrest.Matchers.not;
 
 public class ToDoListUITest {
 
@@ -37,5 +40,20 @@ public class ToDoListUITest {
         onData(anything()).inAdapterView(withId(R.id.to_do_list_view)).atPosition(0).perform(swipeLeft());
         onView(withId(R.id.delete_button)).check(matches(isDisplayed()));
         onView(withId(R.id.check_button)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void whenUserChecksToDoItemThenItemIsMovedToDone() throws Exception{
+        onData(anything()).inAdapterView(withId(R.id.to_do_list_view)).atPosition(0).perform(swipeLeft());
+        onView(withId(R.id.check_button)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.done_list_view)).atPosition(1)
+                .onChildView(withId(R.id.item_title)).check(matches(withText("TODO Title Sample")));
+    }
+
+    @Test
+    public void whenUserDeletesAToDoItemThenItemIsRemoved() throws Exception {
+        onData(anything()).inAdapterView(withId(R.id.to_do_list_view)).atPosition(0).perform(swipeLeft());
+        onView(withId(R.id.delete_button)).perform(click());
+        onView(withId(R.id.item_title)).check(matches(not(withText("TODO Title Sample"))));
     }
 }

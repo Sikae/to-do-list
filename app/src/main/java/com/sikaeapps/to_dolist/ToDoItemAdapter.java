@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
@@ -38,7 +39,8 @@ public class ToDoItemAdapter extends ArrayAdapter {
         TextView titleTextView;
         TextView locationTextView;
         View toDoItemListView;
-        View deleteView;
+        ImageButton deleteButton;
+        ImageButton checkButton;
         SwipeRevealLayout swipeLayout;
     }
 
@@ -52,7 +54,8 @@ public class ToDoItemAdapter extends ArrayAdapter {
             holder = new ViewHolder();
             holder.titleTextView = (TextView) convertView.findViewById(R.id.item_title);
             holder.locationTextView = (TextView) convertView.findViewById(R.id.item_location);
-            holder.deleteView = convertView.findViewById(R.id.delete_layout);
+            holder.deleteButton = (ImageButton)convertView.findViewById(R.id.delete_button);
+            holder.checkButton = (ImageButton)convertView.findViewById(R.id.check_button);
             holder.swipeLayout = (SwipeRevealLayout) convertView.findViewById(R.id.swipe_layout);
             holder.toDoItemListView = convertView.findViewById(R.id.to_do_item_list_view);
             convertView.setTag(holder);
@@ -69,6 +72,15 @@ public class ToDoItemAdapter extends ArrayAdapter {
             intent.putExtra(Constants.MANAGER, manager);
             intent.putExtra(Constants.ITEM, item);
             activity.startActivityForResult(intent, EDIT_ITEM_REQUEST_CODE);
+            }
+        });
+
+        holder.checkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("MESSAGE", "CHECK: " + position);
+                manager.checkItemAtIndex(position);
+                notifyDataSetChanged();
             }
         });
 

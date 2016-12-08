@@ -84,6 +84,14 @@ public class ToDoItemAdapter extends ArrayAdapter {
             }
         });
 
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                manager.removeItemAt(position);
+                notifyDataSetChanged();
+            }
+        });
+
         holder.titleTextView.setText(items.get(position).getTitle());
         holder.locationTextView.setText(items.get(position).getLocation());
 
